@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import axios from 'axios';
-import { Carousel, Container, Button } from 'react-bootstrap';
+import { Carousel, Container, Button, Modal } from 'react-bootstrap';
 
 class BestBooks extends Component {
   constructor(props) {
@@ -56,6 +56,34 @@ class BestBooks extends Component {
   
   }
 
+  handleBookSubmit = (event) => {
+    event.preventDefault();
+  
+    let bookObj = {
+      title: event.target.title.value,  //--enter the values from forms --
+      description: event.target.description.value,
+      status: event.target.status.checked   //--needs to be checked--
+    }
+    this.postBook(bookObj); // passed this handleSubmit function to the postBook function
+  
+  }
+  
+
+  
+  postBook = async (bookObj) => {
+    try{
+    let url = `${process.env.REACT_APP_SERVER}/cats`
+    let createdBook = await axios.post(url, bookObj) // --ON a post, 
+
+    this.setState({
+      books: [...this.state.books, createdBook.data],
+    })
+  
+    } catch(error){
+      console.log(error.message)
+    }
+  }
+
   componentDidMount() {
     this.getBooks();
   }
@@ -94,6 +122,7 @@ class BestBooks extends Component {
                     </div>
                   ))}
               </Carousel>
+              <Button onClick= {this.props.showModal}>Submit</Button>
             </Container>
             ) : (
               <h3>No Books Found </h3>
@@ -146,24 +175,7 @@ deleteBook = async (id) => {
 
 }
 
-***** Create a MODAL that will pop up when a button is pressed to add a book **** // handler lives where state lives --- modal form can go else where (form needs fields for each part of the schema and the status)*****
 
-****handleBookSubmit -- builds the added book****
-
-** #1 comes from Form and builds Book Object **
-
-handleBookSubmit = (event) => {
-  event.preventDefault();
-
-  // Build Cat Object from Form Data
-  let bookObj = {
-    title: event.target.title.value  //--enter the values from forms --
-    description: event.target.description.value
-    status: event.target.status.checked   //--needs to be checked--
-  }
-  this.postBook(bookObj); // passed this handleSubmit function to the postBook function
-
-}
 
 
 

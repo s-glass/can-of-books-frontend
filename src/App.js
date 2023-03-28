@@ -3,33 +3,53 @@ import Header from './Header';
 import Footer from './Footer';
 import BestBooks from './BestBooks';
 import About from './About';
+import BookModal from './BookModal';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Modal
 } from "react-router-dom";
 // import axios from 'axios';
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       books: [],
       error: '',
+      showModal: false,
+      selectedBook: {},
+
     }
   };
 
+  closeModal = () => {
+    this.setState({
+      showModal: false,
+    })
+  }
+
+  openModal = () => {
+    this.setState({
+      showModal: true,
+
+    })
+  }
+
   render() {
-    
+
     return (
+      <>
       <>
         <Router>
           <Header />
           <Routes>
             <Route 
               exact path="/"
-              element={<BestBooks />}
+              element={<BestBooks showModal={this.openModal}/>}
             >
             </Route>
             <Route 
@@ -41,6 +61,11 @@ class App extends React.Component {
           </Routes>
           <Footer />
         </Router>
+        </>
+        
+        <div>
+      <BookModal show={this.state.showModal} onHide={this.closeModal}/>
+      </div>
       </>
     )
   }
