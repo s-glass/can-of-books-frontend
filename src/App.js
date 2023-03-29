@@ -10,7 +10,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Modal
 } from "react-router-dom";
 // import axios from 'axios';
 
