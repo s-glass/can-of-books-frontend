@@ -1,7 +1,7 @@
 # can-of-books-frontend
 
 **Author**: Sarah and Dasha
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 2.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
@@ -13,28 +13,66 @@
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+03/27/2023 8:40pm - App a functioning Nav bar and carousel of books from seed data.
+3/28/2023 5:55pm - Books in carousel are able to be deleted; a form appears in a modal allowing users to input book information that renders to the carousel of books.
 
 ## Estimates
-Name of feature: ________________________________
+### Feature #1: Set Up Repositories
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 30 mins
 
-Start time: _____
+Start time: 1:25pm
 
-Finish time: _____
+Finish time: 2:05pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 40 mins
+
+### Feature #2: Storage
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 2:10pm
+
+Finish time: 4:00pm
+
+Actual time needed to complete: 1 hour, 50 mins
+
+### Feature #3: Book Component
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 5:10pm
+
+Finish time: 8:40pm
+
+Actual time needed to complete: 3.5 hours
+
+### Feature #4: Delete Book
+
+Estimate of time needed to complete: 1.5 hours
+
+Start time: 1:10pm
+
+Finish time: 3:30pm
+
+Actual time needed to complete: 2 hours, 20 minutes
+
+### Feature #5: Add Book
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 3:35pm
+
+Finish time: 5:55pm
+
+Actual time needed to complete: 2 hours, 20 minutes
 
 ## Credit and Collaborations
 
+Thanks to Audrey and TAs Tammy, Brandon, and Justin!
 
 
 ## Team Agreement
-
-# Team Agreement
 
 Dasha: Eastern time zone
 Sarah: Pacific time zone
@@ -60,18 +98,17 @@ Sarah: Pacific time zone
 
 **1. Make a list of each person’s strengths?**
 - Sarah: positive attitude, organizational skills, moderate coding and debugging skills,
-- Dasha: 
+- Dasha: good communication skills, comfortable with coding and debugging
 
 **2. How can you best utilize these strengths in the development of your application?**
 - Being aware of strengths and offering to step up or offer help in areas we are strongest.
 
 **3. In what areas do you each want to develop greater strength?**
 - Sarah: React, debugging
-- Dasha: 
+- Dasha: React, debugging
 
 **4. Knowing that every person in your team needs to understand the code, how do you plan to approach the day-to-day development?**
 - We plan to partner code together after class.
-
 
 ---------------------------
 
