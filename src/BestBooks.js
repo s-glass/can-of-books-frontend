@@ -10,7 +10,6 @@ class BestBooks extends Component {
     this.state = {
       books: [],
       error: '',
-      showBookForm: false,
     }
   }
 
@@ -69,7 +68,7 @@ class BestBooks extends Component {
       status: event.target.status.checked   //--needs to be checked--
     }
     this.postBook(bookObj); // passed this handleSubmit function to the postBook function
-  
+    this.props.closeModal();
   }
   
 
@@ -109,10 +108,8 @@ class BestBooks extends Component {
             this.state.books.length > 0 ? (
     
             <Container>
-
               <Carousel>
                   {this.state.books.map((book, key) => (
-                  <div key={key}>
                     <Carousel.Item key={book._id}>
                       <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
                         alt={book.description}
@@ -122,7 +119,6 @@ class BestBooks extends Component {
                         <Button onClick= {() => {this.deleteBook(book._id)}}>Delete</Button>
                       </Carousel.Caption>
                     </Carousel.Item>
-                    </div>
                   ))}
               </Carousel>
               {this.props.showModal ? <BookModal show={this.props.openModal} onHide={this.props.closeModal} handleBookSubmit={this.handleBookSubmit}/>:<Button onClick= {this.props.openModal}>Add Book</Button>}
