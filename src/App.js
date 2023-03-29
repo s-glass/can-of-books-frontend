@@ -39,6 +39,7 @@ class App extends React.Component {
     })
   }
 
+
   render() {
 
     return (
@@ -49,7 +50,7 @@ class App extends React.Component {
           <Routes>
             <Route 
               exact path="/"
-              element={<BestBooks showModal={this.openModal}/>}
+              element={<BestBooks openModal={this.openModal} showModal={this.state.showModal} closeModal={this.closeModal}/>}
             >
             </Route>
             <Route 
@@ -64,7 +65,7 @@ class App extends React.Component {
         </>
         
         <div>
-      <BookModal show={this.state.showModal} onHide={this.closeModal}/>
+
       </div>
       </>
     )

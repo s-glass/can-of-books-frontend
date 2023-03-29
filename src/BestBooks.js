@@ -1,13 +1,16 @@
 import { Component } from 'react';
 import axios from 'axios';
 import { Carousel, Container, Button, Modal } from 'react-bootstrap';
+import BookModal from './BookModal';
+import bookImg from './img/random.png'
 
 class BestBooks extends Component {
   constructor(props) {
     super(props);
     this.state = {
       books: [],
-      error: ''
+      error: '',
+      showBookForm: false,
     }
   }
 
@@ -58,6 +61,7 @@ class BestBooks extends Component {
 
   handleBookSubmit = (event) => {
     event.preventDefault();
+
   
     let bookObj = {
       title: event.target.title.value,  //--enter the values from forms --
@@ -72,7 +76,7 @@ class BestBooks extends Component {
   
   postBook = async (bookObj) => {
     try{
-    let url = `${process.env.REACT_APP_SERVER}/cats`
+    let url = `${process.env.REACT_APP_SERVER}/books`
     let createdBook = await axios.post(url, bookObj) // --ON a post, 
 
     this.setState({
@@ -94,7 +98,7 @@ class BestBooks extends Component {
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
 
   render() {
-
+    console.log(this.state.books);
     /* TODO: render all the books in a Carousel */
 
     return (
@@ -109,95 +113,28 @@ class BestBooks extends Component {
               <Carousel>
                   {this.state.books.map((book, key) => (
                   <div key={key}>
-                    <Book book={book}/> 
-
                     <Carousel.Item key={book._id}>
-                      <img src="../img/Screenshot 2023-03-25 at 2.02.00 AM (2).png"
+                      <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
                         alt={book.description}
                       />
                       <Carousel.Caption>
                         {book.title} is about {book.description}
+                        <Button onClick= {() => {this.deleteBook(book._id)}}>Delete</Button>
                       </Carousel.Caption>
                     </Carousel.Item>
                     </div>
                   ))}
               </Carousel>
-              <Button onClick= {this.props.showModal}>Submit</Button>
+              {this.props.showModal ? <BookModal show={this.props.openModal} onHide={this.props.closeModal} handleBookSubmit={this.handleBookSubmit}/>:<Button onClick= {this.props.openModal}>Add Book</Button>}
+
             </Container>
             ) : (
               <h3>No Books Found </h3>
-          )};
+          )}
       </>
     )
   }
 }
-class Book extends Component {
-  render() {
-    return (
-      <>
-      <p>{this.props.book.title} is about {this.props.book.description}</p>
-      <Button onClick= {() => {this.props.deleteBook(this.props.book._id)}}>Delete</Button>
-      </>
-    )
-  }
-}
+
 
 export default BestBooks;
-
-/* 
-//delete goes where state is which is here -- wherever state lives is where to update the delete state
-
-deleteBook = async (id) => {
-
-  try{
-    // Axios will send ID of cat to delete
-    
-    let url = `${process.env.REACT_APP_SERVER}/books/${id}`
-
-    await axios.delete(url);
-
-
-    // Update state to then remove the delete books => use .filter() to get 
-    
-    let updatedBooks = this.state.books.filter(book => book._id ! == id); // easy way to do this is {this.getBooks}
-
-
-    this.setState({
-      books: updatedBooks,
-    })
-
-
-
-
-  }catch{
-    console.log(error.response);
-  }
-
-}
-
-
-
-
-
-***adds book to database***
-
-postBook = async (bookObj) => {
-
-  try{
-
-  let url = `${process.env.REACT_APP_SERVER}/cats`
-
-  let createdBook = await axios.post(url, bookObj) // --ON a post, 
-
-  this.setState({
-    books: [...this.state.books, createdBook.data],
-  })
-
-  } catch(error){
-    console.log(error.message)
-  }
-
-
-}
-
-*/
