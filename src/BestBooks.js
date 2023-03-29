@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import axios from 'axios';
-import { Carousel, Container, Button } from 'react-bootstrap';
+import { Carousel, Container, Button, } from 'react-bootstrap';
 import BookModal from './BookModal';
-// import UpdateBookForm from './UpdateBookForm';
+import UpdateBookForm from './UpdateBookForm';
 // import bookImg from './img/random.png'
 
 class BestBooks extends Component {
@@ -11,7 +11,8 @@ class BestBooks extends Component {
     this.state = {
       books: [],
       error: '',
-      showForm: false
+      showForm: false,
+      bookToUpdate: null
     }
   }
 
@@ -20,7 +21,7 @@ class BestBooks extends Component {
       let url = `${process.env.REACT_APP_SERVER}/books`;
 
       let axiosData = await axios.get(url);
-      // console.log('FIRST LOOK AT THE DATA:', axiosData);
+      console.log('FIRST LOOK AT THE DATA:', axiosData);
 
       this.setState({
         books: axiosData.data
@@ -88,29 +89,34 @@ class BestBooks extends Component {
   }
 
   // Update cat in state using axios to hit backend
-  // updateBook = async (bookObjToUpdate) => {
-  //   // TODO: URL for axios
-  //   let url = `${process.env.REACT_APP_SERVER}/books/${bookObjToUpdate._id}`
+  updateBook = async (bookObjToUpdate) => {
+    try {
+    // TODO: URL for axios
+    let url = `${process.env.REACT_APP_SERVER}/books/${bookObjToUpdate._id}`
 
-  //   let updatedBook = await axios.put(url, bookObjToUpdate)
+    let updatedBook = await axios.put(url, bookObjToUpdate)
 
-  //   // TODO set state with return from axios
-  //   let updatedBookArray = this.state.books.map(existingBook => {
-  //     return existingBook._id === bookObjToUpdate._id
-  //       ? updatedBook.data
-  //       : existingBook
-  //   })
+    // TODO set state with return from axios
+    let updatedBookArray = this.state.books.map(existingBook => {
+      return existingBook._id === bookObjToUpdate._id
+        ? updatedBook.data
+        : existingBook
+    })
 
-  //   this.setState({
-  //     books: updatedBookArray
-  //   })
+    this.setState({
+      books: updatedBookArray
+    })
 
-  // } catch (error) {
-  //   console.log(error.message)
-  // }
-  // }
+  } catch (error) {
+    console.log(error.message)
+  }
+  }
 
-
+  closeModal = () => {
+    this.setState({
+      showForm: false
+    })
+  }
 
   componentDidMount() {
     this.getBooks();
@@ -140,28 +146,34 @@ class BestBooks extends Component {
                       alt={book.description}
                     />
                     <Carousel.Caption>
-                      {book.title} is about {book.description}
+                      <p>{book.title} is about {book.description}</p>
                       <Button onClick={() => { this.deleteBook(book._id) }}>Delete</Button>
-                      {/* <Button> onClick={() => {this.setState({show.Form: true}) })>Open Update Form</Button> */}
+                      <Button onClick={() => { this.setState({showForm: true, bookToUpdate: book}) }}>Open Update Form</Button>
+ 
 
-                      {/* {this.state.showForm &&
-                      <UpdateBookForm 
-                      book={this.props.book}
-                      updateBook={this.props.updateBook}
-                      />
-                      } */}
 
                     </Carousel.Caption>
                   </Carousel.Item>
                 ))}
               </Carousel>
               {this.props.showModal ? <BookModal show={this.props.openModal} onHide={this.props.closeModal} handleBookSubmit={this.handleBookSubmit} /> : <Button onClick={this.props.openModal}>Add Book</Button>}
+              
+              <UpdateBookForm 
+                      show={this.state.showForm}
+                      onHide={this.closeModal}
+                      book={this.state.bookToUpdate}
+                      updateBook={this.updateBook}
+                      />
 
             </Container>
+
           ) : (
             <h3>No Books Found </h3>
           )}
+
       </>
+
+
     )
   }
 }
